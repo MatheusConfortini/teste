@@ -5,7 +5,6 @@ pipeline {
         SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
         SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4'
-
     }
     stages {
         stage('Fontes SVN') {
@@ -27,18 +26,15 @@ pipeline {
                 docker {
                     image DOCKER_IMAGE
                     args '--privileged -u 0 -v ${WORKSPACE}:/fontes'
-                    reuseNode true
                 }
             }
             steps {
                 script {
                     // Acessa e executa o script dentro do container
                     sh "whoami"
-                    sh "chmod 777 build.sh"
-                    sh "pwd"
-                    sh "cd /fontes"
-                    sh "ls -lha"
-                    sh "/fontes/build.sh"
+                    sh "ls -lha /fontes"   // Confirma que o script está dentro do diretório
+                    sh "chmod +x /fontes/build.sh"  // Dá permissão de execução
+                    sh "/fontes/build.sh"  // Executa o script diretamente
                 }
             }
         }
