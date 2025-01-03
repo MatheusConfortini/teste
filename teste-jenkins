@@ -23,15 +23,13 @@ pipeline {
                     image DOCKER_IMAGE
                     args """
                         --privileged
-                        -v ${WORKSPACE}:/workspace
-                        -w /workspace
                     """
+                    reuseNode true
                 }
             }
             steps {
                 sh 'ls -lha'
                 sh 'pwd'
-                sh 'ls -lha /workspace'
             }
         }
     }
