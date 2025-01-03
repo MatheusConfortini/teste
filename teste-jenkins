@@ -6,15 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'ubuntu:latest'
     }
     stages {
-        stage('Set Workspace') {
-            steps {
-                ws('/var/jenkins_home/workspace/Teste-Pipeline') {
-                    sh 'echo "Caminho do workspace: $WORKSPACE"'
-                    sh 'touch HelloWorld.txt'
-                }
-            }
-        }
-        stage('SVN') {
+        stage('Fontes SVN') {
             steps {
                 script {
                     checkout([
@@ -25,19 +17,13 @@ pipeline {
                 }
             }
         }
-        stage('teste-1') {
-            steps {
-                sh 'pwd'
-                sh 'ls -lha ${WORKSPACE}'
-            }
-        }
-        stage('teste-docker') {
+        stage('Teste Workspace') {
             agent {
                 docker {
                     image DOCKER_IMAGE
                     args """
                         --privileged
-                        -v /var/jenkins_home/workspace/Teste-Pipeline:/workspace
+                        -v ${WORKSPACE}:/workspace
                         -w /workspace
                     """
                 }
