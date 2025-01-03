@@ -45,6 +45,7 @@ pipeline {
             steps {
                 sh 'ls -lha'
                 sh 'pwd'
+                sh 'ls -lha /workspace'
             }
         }
     }
