@@ -30,12 +30,7 @@ pipeline {
                 }
             }
             steps {
-                sh """ 
-                    export ACBR_HOME=$WORKSPACE
-                    cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
-                    lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-                    lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
-                """
+                sh "./build.sh"
             }
         }
     }
