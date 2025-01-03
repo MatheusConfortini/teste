@@ -4,7 +4,7 @@ pipeline {
     environment {
         SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
         SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
-        DOCKER_IMAGE = 'ubuntu:latest'
+        DOCKER_IMAGE = 'docker pull matheusconf/lazarus-crossbuilder:lazarus-2.2.4'
     }
     stages {
         stage('Fontes SVN') {
@@ -30,8 +30,10 @@ pipeline {
                 }
             }
             steps {
-                sh 'ls -lha'
-                sh 'pwd'
+                sh """ cd $WORKSPACE/Projetos/ACBrLib/Fontes/NFe
+                    lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
+                    lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
+                """
             }
         }
     }
