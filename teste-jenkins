@@ -4,9 +4,6 @@ pipeline {
         SVN_URL = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
         DOCKER_IMAGE = 'ubuntu:latest'
     }
-    options {
-        customWorkspace('/var/jenkins_home/workspace/${JOB_NAME}')
-    }
     stages {
         stage('SVN') {
             steps {
