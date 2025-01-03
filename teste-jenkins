@@ -26,7 +26,11 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args "--privileged"
+                    args """
+                        --privileged
+                        -v /var/jenkins_home/workspace/Teste-Pipeline:/workspace
+                        -w /workspace
+                    """
                 }
             }
             steps {
