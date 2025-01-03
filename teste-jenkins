@@ -32,6 +32,7 @@ pipeline {
             steps {
                 sh "whoami"
                 sh "chmod 777 build.sh && ./build.sh"
+                sh "pwd && ls -lha"
             }
         }
     }
