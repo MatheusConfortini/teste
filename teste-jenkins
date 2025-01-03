@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    environment {
+        SVN_URL = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
+        DOCKER_IMAGE = 'ubuntu:latest'
+    }
+    options {
+        customWorkspace('/var/jenkins_home/workspace/${JOB_NAME}')
+    }
+    stages {
+        stage('SVN') {
+            steps {
+                script {
+                    checkout([
+                        $class: 'SubversionSCM',
+                        locations: [[remote: SVN_URL]],
+                        workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
+                    ])
+                }
+            }
+        }
+        stage('teste-1') {
+            steps {
+                sh 'pwd'
+                sh 'ls -lha ${WORKSPACE}'
+            }
+        }
+        stage('teste-docker') {
+            agent {
+                docker {
+                    image DOCKER_IMAGE
+                    args "--privileged"
+                }
+            }
+            steps {
+                sh 'ls -lha'
+                sh 'pwd'
+            }
+        }
+    }
+}
