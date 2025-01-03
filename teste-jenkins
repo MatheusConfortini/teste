@@ -32,12 +32,11 @@ pipeline {
             steps {
                 script {
                     // Acessa e executa o script dentro do container
-                    sh ''
                     sh "whoami"
                     sh "chmod 777 build.sh"
                     sh "pwd"
                     sh "ls -lha"
-                    sh "./build.sh"
+                    sh "build.sh"
                 }
             }
         }
