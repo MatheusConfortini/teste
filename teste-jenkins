@@ -5,6 +5,14 @@ pipeline {
         DOCKER_IMAGE = 'ubuntu:latest'
     }
     stages {
+        stage('Set Workspace') {
+            steps {
+                ws('/var/jenkins_home/workspace/Teste-Pipeline') {
+                    sh 'echo "Caminho do workspace: $WORKSPACE"'
+                    sh 'touch HelloWorld.txt'
+                }
+            }
+        }
         stage('SVN') {
             steps {
                 script {
