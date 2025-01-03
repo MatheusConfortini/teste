@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 sh "whoami"
-                sh "chmod 775./build.sh && ./build.sh"
+                sh "chmod 777 build.sh && ./build.sh"
             }
         }
     }
