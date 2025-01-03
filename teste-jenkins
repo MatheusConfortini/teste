@@ -2,7 +2,8 @@ pipeline {
     agent any
     options { disableConcurrentBuilds() }
     environment {
-        SVN_URL = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
+        SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
+        SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
         DOCKER_IMAGE = 'ubuntu:latest'
     }
     stages {
@@ -11,7 +12,10 @@ pipeline {
                 script {
                     checkout([
                         $class: 'SubversionSCM',
-                        locations: [[remote: SVN_URL]],
+                        locations: [
+                            [remote: SVN_PROJETOS],
+                            [remote: SVN_DLL]
+                        ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
                 }
@@ -21,15 +25,13 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args """
-                        --privileged
-                    """
+                    args '--privileged'
                     reuseNode true
                 }
             }
             steps {
                 sh 'ls -lha'
-                sh 'echo ${WORKSPACE}'
+                sh 'pwd'
             }
         }
     }
