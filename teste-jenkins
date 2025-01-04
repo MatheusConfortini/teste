@@ -8,20 +8,6 @@ pipeline {
 
     }
     stages {
-        stage('Fontes SVN') {
-            steps {
-                script {
-                    checkout([
-                        $class: 'SubversionSCM',
-                        locations: [
-                            [remote: SVN_PROJETOS],
-                            [remote: SVN_DLL]
-                        ],
-                        workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
-                    ])
-                }
-            }
-        }
         stage('Teste Workspace') {
             steps {
                 script {
