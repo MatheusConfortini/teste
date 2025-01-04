@@ -31,14 +31,7 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    sh '''
-                    ls -lha
-                    pwd
-                    chmod +x build.sh
-                    build.sh
-                    '''
-                }
+                sh './build.sh'
             }
         }
     }
