@@ -23,7 +23,7 @@ pipeline {
                     pwd
                     chmod +x build.sh
                     ls -lha
-                    exec build.sh
+                    /var/jenkins_home/workspace/teste/build.sh
                     '''
                 }
             }
