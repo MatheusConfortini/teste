@@ -8,20 +8,6 @@ pipeline {
 
     }
     stages {
-        stage('Fontes SVN') {
-            steps {
-                script {
-                    checkout([
-                        $class: 'SubversionSCM',
-                        locations: [
-                            [remote: SVN_PROJETOS],
-                            [remote: SVN_DLL]
-                        ],
-                        workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
-                    ])
-                }
-            }
-        }
         stage('Teste Workspace') {
             agent {
                 docker {
@@ -35,6 +21,7 @@ pipeline {
                     sh '''
                     ls -lha
                     pwd
+                    ls -lha Projetos
                     chmod +x build.sh
                     ls -lha
                     build.sh
