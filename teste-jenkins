@@ -33,7 +33,6 @@ pipeline {
             steps {
                 script {
                     sh ''' dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}
-                    ls -lha $dir
                     pwd
                     '''
                 }
