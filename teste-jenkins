@@ -33,12 +33,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
-                    export ANDROID_HOME=/opt/ides/lamw/sdk
-                    cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
-                    lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-                    lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
-                    cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
+                    ls -lha
+                    pwd
+                    ls -lha Projetos
+                    chmod +x build.sh
+                    ls -lha
+                    build.sh
                     '''
                 }
             }
