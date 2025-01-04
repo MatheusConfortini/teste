@@ -26,7 +26,7 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args '--privileged -u 0'
+                    args '--privileged -u 0-v workspace:/fontes'
                     
                 }
             }
@@ -34,6 +34,7 @@ pipeline {
                 script {
                     sh ''' dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}
                     pwd
+                    ls -lha /fontes/"$dir"/
                     '''
                 }
             }
