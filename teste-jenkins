@@ -33,8 +33,7 @@ pipeline {
             steps {
                 script {
                     sh ''' dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}
-                    pwd
-                    ls -lha /fontes/
+                    /fontes/"$dir"/build.sh
                     '''
                 }
             }
