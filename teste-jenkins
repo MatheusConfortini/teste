@@ -34,7 +34,7 @@ pipeline {
                 script {
                     sh ''' dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}
                     pwd
-                    ls -lha /fontes/"$dir"/
+                    ls -lha /fontes/
                     '''
                 }
             }
