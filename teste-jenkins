@@ -27,7 +27,7 @@ pipeline {
                 docker {
                     image DOCKER_IMAGE
                     args '--privileged -u 0'
-                    reuseNode true true
+                    reuseNode true
                 }
             }
             steps {
