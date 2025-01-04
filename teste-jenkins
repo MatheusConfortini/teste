@@ -26,18 +26,18 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args '--privileged -u 0 -v /var/jenkins_home/workspace/Teste-Pipeline:/fontes -w /fontes'
+                    args '--privileged -u 0 -v workspace:/fontes --name lazbuild'
                     reuseNode true
                 }
             }
             steps {
                 script {
                     // Acessa e executa o script dentro do container
-                    sh "whoami"
+                    sh "dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}"
                     sh "chmod 777 build.sh"
                     sh "pwd"
                     sh "ls -lha"
-                    sh "ls -lha /fontes"
+                    sh "ls -lha $dir"
                     sh "/fontes/build.sh"
                 }
             }
