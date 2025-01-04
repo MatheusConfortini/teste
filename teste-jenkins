@@ -21,7 +21,6 @@ pipeline {
                     sh '''
                     ls -lha
                     pwd
-                    ls -lha Projetos
                     chmod +x build.sh
                     ls -lha
                     build.sh
