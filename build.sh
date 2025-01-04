@@ -11,8 +11,12 @@ export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
 # compilar a lib para android com lazbuild ...
 
 # copiar a lib para o projeto android
-
+ls -lha
+pwd
 cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
+ls -lha
+pwd
+
 lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
 lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
 cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
