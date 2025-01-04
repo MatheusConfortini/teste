@@ -23,7 +23,7 @@ pipeline {
                     pwd
                     chmod +x build.sh
                     ls -lha
-                    build.sh
+                    ./build.sh
                     '''
                 }
             }
