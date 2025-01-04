@@ -8,22 +8,25 @@ pipeline {
 
     }
     stages {
-        stage('Teste Workspace') {
-            agent {
-                docker {
-                    image DOCKER_IMAGE
-                    args '-u 0'
-                    reuseNode true
+        stage('Fontes SVN') {
+            steps {
+                script {
+                    checkout([
+                        $class: 'SubversionSCM',
+                        locations: [
+                            [remote: SVN_PROJETOS],
+                            [remote: SVN_DLL]
+                        ],
+                        workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
+                    ])
                 }
             }
+        }
+        stage('Teste Workspace') {
             steps {
                 script {
                     sh '''
-                    ls -lha
-                    pwd
-                    chmod +x build.sh
-                    ls -lha
-                    /var/jenkins_home/workspace/teste/build.sh
+                    build.sh
                     '''
                 }
             }
