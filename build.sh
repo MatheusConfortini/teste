@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
 
