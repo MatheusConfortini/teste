@@ -26,7 +26,7 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args '--privileged -u 0-v workspace:/fontes'
+                    args '--privileged -u 0 -v workspace:/fontes'
                     
                 }
             }
