@@ -26,19 +26,15 @@ pipeline {
             agent {
                 docker {
                     image DOCKER_IMAGE
-                    args '--privileged -u 0 -v workspace:/fontes --name lazbuild'
+                    args '--privileged -u 0'
                     reuseNode true
                 }
             }
             steps {
                 script {
-                    // Acessa e executa o script dentro do container
-                    sh "dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}"
-                    sh "chmod 777 build.sh"
-                    sh "pwd"
-                    sh "ls -lha"
-                    sh "ls -lha $dir"
-                    sh "/fontes/build.sh"
+                    sh ''' dir=${WORKSPACE%@*} ; dir=${dir#*workspace/}
+                    ls -lha $dir
+                    '''
                 }
             }
         }
