@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
+
 
 
 # é importante ter o cmdlinetools instalado
@@ -44,9 +45,9 @@ w=(
 
 for node in ${w[@]}; do
 	svn revert . -R
-	other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
-	acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
-	other_units_fixed="$other_units;$acbr_base"
+	export other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
+	export acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
+	export other_units_fixed="$other_units;$acbr_base"
 	xmlstarlet edit  --inplace  -u "$node" -v "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
 done
 
