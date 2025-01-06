@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ACBR_HOME=~/var/jenkins_home/workspace/Teste-Pipeline
+export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
 
 
 # é importante ter o cmdlinetools instalado
