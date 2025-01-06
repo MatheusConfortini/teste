@@ -22,7 +22,7 @@ for node in ${w[*]}; do
 
 	other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
 	acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
-	other_units_fixed="$other_units;acbr_base"
+	other_units_fixed="$other_units;$acbr_base"
 	xmlstarlet edit  --inplace  -u "$node" -v  "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
 
 done
