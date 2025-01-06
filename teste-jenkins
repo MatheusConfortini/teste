@@ -35,7 +35,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'chmod +x build.sh'
+                sh 'chmod 777 -R trunk2'
                 sh 'bash -x build.sh'
             }
         }
