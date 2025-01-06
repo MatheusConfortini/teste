@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline
+export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
 
 
 
