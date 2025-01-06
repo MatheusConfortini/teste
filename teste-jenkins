@@ -5,13 +5,13 @@ pipeline {
         SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
         SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
-        SVN_REV = 
-
     }
     parameters {
-    string(name: 'RevSVN',
-      defaultValue: '',
-      description: 'Defina a revisão estável do SVN do ACBR')
+        string(
+            name: 'RevSVN',
+            defaultValue: '',
+            description: 'Defina a revisão estável do SVN do ACBR (deixe vazio para a última revisão)'
+        )
     }
     stages {
         stage('Fontes SVN') {
@@ -20,8 +20,8 @@ pipeline {
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: SVN_PROJETOS + params.RevSVN],
-                            [remote: SVN_DLL + params.RevSVN]
+                            [remote: SVN_PROJETOS, revision: params.RevSVN],
+                            [remote: SVN_DLL, revision: params.RevSVN]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
@@ -31,7 +31,7 @@ pipeline {
         stage('Teste Workspace') {
             agent {
                 docker {
-                    image DOCKER_IMAGE
+                    image "${DOCKER_IMAGE}"
                     args '--privileged -u 0'
                     reuseNode true
                 }
