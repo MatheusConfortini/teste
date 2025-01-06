@@ -50,8 +50,8 @@ for node in ${w[@]}; do
 	xmlstarlet edit  --inplace  -u "$node" -v "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
 done
 
-lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
+/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
+/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
 cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
 
 
