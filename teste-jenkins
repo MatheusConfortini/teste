@@ -9,7 +9,7 @@ pipeline {
     parameters {
         string(
             name: 'RevSVN',
-            defaultValue: '36790',
+            defaultValue: '@36790',
             description: 'Defina a revisão estável do SVN do ACBR (deixe vazio para a última revisão)'
         )
     }
@@ -20,8 +20,8 @@ pipeline {
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: SVN_PROJETOS, revision: params.RevSVN],
-                            [remote: SVN_DLL, revision: params.RevSVN]
+                            [remote: SVN_PROJETOS + params.RevSVN],
+                            [remote: SVN_DLL + params.RevSVN]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
