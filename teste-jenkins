@@ -2,7 +2,7 @@ pipeline {
     agent any
     options { disableConcurrentBuilds() }
     environment {
-        SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
+        SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
         SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
     }
@@ -37,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'chmod 777 build.sh'
+                sh 'chmod -R 777 ./*'
                 sh 'bash -x build.sh'
             }
         }
