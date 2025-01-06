@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+source /home/pascal/LAMW/lamw4linux/etc/environment
+
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
-
-
 
 # é importante ter o cmdlinetools instalado
 # https://developer.android.com/studio#command-tools
