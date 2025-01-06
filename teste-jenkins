@@ -5,7 +5,13 @@ pipeline {
         SVN_PROJETOS = 'https://svn.code.sf.net/p/acbr/code/trunk2/Projetos'
         SVN_DLL = 'https://svn.code.sf.net/p/acbr/code/trunk2/DLLs'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
+        SVN_REV = 
 
+    }
+    parameters {
+    string(name: 'RevSVN',
+      defaultValue: '',
+      description: 'Defina a revisão estável do SVN do ACBR')
     }
     stages {
         stage('Fontes SVN') {
@@ -14,8 +20,8 @@ pipeline {
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: SVN_PROJETOS],
-                            [remote: SVN_DLL]
+                            [remote: SVN_PROJETOS + params.RevSVN],
+                            [remote: SVN_DLL + params.RevSVN]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
