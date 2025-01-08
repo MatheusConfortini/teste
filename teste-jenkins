@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image DOCKER_IMAGE
-            args '--privileged --rm -u 0'
-            reuseNode true
-        }
-    }
+    agent any
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
@@ -17,6 +11,13 @@ pipeline {
             defaultValue: '',
             description: 'Defina a revisão estável do SVN do ACBR (deixe vazio para a última revisão)'
         )
+    }
+    agent {
+        docker {
+            image ${DOCKER_IMAGE}
+            args '--privileged --rm -u 0'
+            reuseNode true
+        }
     }
     stages {
         stage('Sincronizando Fontes') {
