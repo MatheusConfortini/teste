@@ -13,7 +13,7 @@ pipeline {
         )
     }
     stages {
-        stage('Fontes SVN') {
+        stage('Sincroniza Fontes') {
             steps {
                 script {
                     checkout([
@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }
-        stage('Teste Workspace') {
+        stage('Compila LPI') {
             agent {
                 docker {
                     image "${DOCKER_IMAGE}"
@@ -36,7 +36,19 @@ pipeline {
             }
             steps {
                 sh 'chmod 777 -R trunk2'
-                sh 'bash -x build.sh'
+                sh 'bash stage_1.sh'
+            }
+        }
+        stage('Compilando ACBrLibBase e Build .aar') {
+            agent {
+                docker {
+                    image "${DOCKER_IMAGE}"
+                    args '--privileged -u 0'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'bash stage_2.sh'
             }
         }
     }
