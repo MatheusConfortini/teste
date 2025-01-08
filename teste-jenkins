@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
@@ -32,6 +33,13 @@ pipeline {
                 }
             }
         }
+        agent {
+            docker {
+                image DOCKER_IMAGE
+                args '--privileged --rm -u 0'
+                reuseNode true
+            }
+        }        
         stage('Compilando LPI') {
             steps {
                 sh 'chmod 777 -R trunk2'
