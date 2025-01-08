@@ -9,14 +9,27 @@ export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
 export ANDROID_HOME=/opt/ides/lamw/sdk
 export DIR_LIB=$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
 
-#Compila LIB com LAMW
+
+# Compila LIB com LAMW
 if [ -f "$DIR_LIB/ACBrLibNFeConsoleMT.lpi" ]; then
-  echo -s "Compilando LIB Android..."\n
+  echo -e "Compilando LIB Android...\n"
+  
   ${lazbuild_lamw} --bm=android-armeabi-v7a $DIR_LIB/ACBrLibNFeConsoleMT.lpi
+  if [ $? -ne 0 ]; then
+    echo -e "Erro ao compilar para android-armeabi-v7a.\n"
+    exit 1
+  fi
+
   ${lazbuild_lamw} --bm=android-arm64-v8a $DIR_LIB/ACBrLibNFeConsoleMT.lpi
+  if [ $? -ne 0 ]; then
+    echo -e "Erro ao compilar para android-arm64-v8a.\n"
+    exit 1
+  fi
+  
+  echo -e "Compilação concluída com sucesso.\n"
 else
-  echo "ACBrLibNFeConsoleMT.lpi não encontrado, verifique os arquivos."\n
-  exit
+  echo -e "ACBrLibNFeConsoleMT.lpi não encontrado, verifique os arquivos.\n"
+  exit 1
 fi
 
 cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
