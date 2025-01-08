@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image "${DOCKER_IMAGE}"
+            args '--privileged -u 0'
+            reuseNode true
+        }
+    }
     options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
@@ -27,26 +33,12 @@ pipeline {
             }
         }
         stage('Compila LPI') {
-            agent {
-                docker {
-                    image "${DOCKER_IMAGE}"
-                    args '--privileged -u 0'
-                    reuseNode true
-                }
-            }
             steps {
                 sh 'chmod 777 -R trunk2'
                 sh 'bash stage_1.sh'
             }
         }
         stage('Compilando ACBrLibBase e Build .aar') {
-            agent {
-                docker {
-                    image "${DOCKER_IMAGE}"
-                    args '--privileged -u 0'
-                    reuseNode true
-                }
-            }
             steps {
                 sh 'bash stage_2.sh'
             }
