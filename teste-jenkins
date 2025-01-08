@@ -1,16 +1,16 @@
 pipeline {
     agent {
         docker {
-            image "matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android"
-            args '--privileged -u 0'
+            image DOCKER_IMAGE
+            args '--privileged --rm -u 0'
             reuseNode true
         }
     }
-    options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
     }
+    options { disableConcurrentBuilds() }
     parameters {
         string(
             name: 'RevSVN',
@@ -25,7 +25,7 @@ pipeline {
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: SVN_ACBR + params.RevSVN]
+                            [remote: "${SVN_ACBR}${params.RevSVN}"]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
