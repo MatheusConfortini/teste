@@ -12,13 +12,6 @@ pipeline {
             description: 'Defina a revisão estável do SVN do ACBR (deixe vazio para a última revisão)'
         )
     }
-    agent {
-        docker {
-            image DOCKER_IMAGE
-            args '--privileged --rm -u 0'
-            reuseNode true
-        }
-    }
     stages {
         stage('Sincronizando Fontes') {
             steps {
@@ -33,14 +26,14 @@ pipeline {
                 }
             }
         }
-        agent {
-            docker {
-                image DOCKER_IMAGE
-                args '--privileged --rm -u 0'
-                reuseNode true
-            }
-        }        
         stage('Compilando LPI') {
+            agent {
+                docker {
+                    image "${DOCKER_IMAGE}"
+                    args '--privileged --rm -u 0'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'chmod 777 -R trunk2'
                 sh 'bash stage_1.sh'
