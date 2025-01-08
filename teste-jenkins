@@ -34,19 +34,9 @@ pipeline {
                     reuseNode true
                 }
             }
-            stages {
-                stage('Sub-Stage 1') {
-                    steps {
-                        echo 'Executando ações do Sub-Stage 1'
-                        sh 'chmod 777 -R trunk2'
-                    }
-                }
-                stage('Sub-Stage 2') {
-                    steps {
-                        echo 'Executando ações do Sub-Stage 2'
-                        sh 'bash -x build.sh'
-                    }
-                }
+            steps {
+                sh 'chmod 777 -R trunk2'
+                sh 'bash -x build.sh'
             }
         }
     }

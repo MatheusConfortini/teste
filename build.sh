@@ -2,10 +2,10 @@
 
 source /home/pascal/LAMW/lamw4linux/etc/environment
 
-export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
+##Envs
+export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
 
-# é importante ter o cmdlinetools instalado
-# https://developer.android.com/studio#command-tools
+export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
 
 export ANDROID_HOME=/opt/ides/lamw/sdk
 
@@ -13,29 +13,38 @@ export ANDROID_HOME=/opt/ides/lamw/sdk
 
 # copiar a lib para o projeto android
 
-cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
 
-
-w=( 
+#w=( 
 #'/CONFIG/ProjectOptions/BuildModes/Item3/@Name
-'/CONFIG/ProjectOptions/BuildModes/Item3/CompilerOptions/SearchPaths/OtherUnitFiles/@Value' 
+#'/CONFIG/ProjectOptions/BuildModes/Item3/CompilerOptions/SearchPaths/OtherUnitFiles/@Value' 
 #'/CONFIG/ProjectOptions/BuildModes/Item4/@Name
-'/CONFIG/ProjectOptions/BuildModes/Item4/CompilerOptions/SearchPaths/OtherUnitFiles/@Value'  
-)
+#'/CONFIG/ProjectOptions/BuildModes/Item4/CompilerOptions/SearchPaths/OtherUnitFiles/@Value'  
+#)
 
 
 #xmlstartlet é instalado pelo lamw_manager_setup.sh
 
-for node in ${w[@]}; do
-	svn revert . -R
-	export other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
-	export acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
-	export other_units_fixed="$other_units;$acbr_base"
-	xmlstarlet edit  --inplace  -u "$node" -v "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
-done
+#for node in ${w[@]}; do
+#	svn revert . -R
+#	export other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
+#	export acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
+#	export other_units_fixed="$other_units;$acbr_base"
+#	xmlstarlet edit  --inplace  -u "$node" -v "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
+#done
 
-/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
+cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
+
+echo -s "Compilando LIB Android..."
+
+if [ -f "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi" ]; then
+  echo -s "Compilando LIB Android..."\n
+  ${lazbuild_lamw} --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
+  ${lazbuild_lamw} --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
+else
+  echo "ACBrLibNFeConsoleMT.lpi não encontrado, verifique os arquivos."\n
+fi
+${lazbuild_lamw} --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
+${lazbuild_lamw} --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
 cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
 
 
