@@ -1,10 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image "matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android"
+            args '--privileged -u 0'
+            reuseNode true
+        }
+    }
+    options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
         DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
     }
-    options { disableConcurrentBuilds() }
     parameters {
         string(
             name: 'RevSVN',
@@ -13,27 +19,20 @@ pipeline {
         )
     }
     stages {
-        stage('Sincronizando Fontes') {
+        stage('Sincroniza Fontes') {
             steps {
                 script {
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: "${SVN_ACBR}${params.RevSVN}"]
+                            [remote: SVN_ACBR + params.RevSVN]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
                 }
             }
         }
-        stage('Compilando LPI') {
-            agent {
-                docker {
-                    image "${DOCKER_IMAGE}"
-                    args '--privileged --rm -u 0'
-                    reuseNode true
-                }
-            }
+        stage('Compila LPI') {
             steps {
                 sh 'chmod 777 -R trunk2'
                 sh 'bash stage_1.sh'
