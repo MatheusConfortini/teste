@@ -1,52 +1,25 @@
 #!/usr/bin/env bash
 
+#Atalho para o LAMW
+export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
 source /home/pascal/LAMW/lamw4linux/etc/environment
 
-##Envs
-export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
-
+#Variaveis
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
-
 export ANDROID_HOME=/opt/ides/lamw/sdk
+export DIR_LIB=$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
 
-# compilar a lib para android com lazbuild ...
-
-# copiar a lib para o projeto android
-
-
-#w=( 
-#'/CONFIG/ProjectOptions/BuildModes/Item3/@Name
-#'/CONFIG/ProjectOptions/BuildModes/Item3/CompilerOptions/SearchPaths/OtherUnitFiles/@Value' 
-#'/CONFIG/ProjectOptions/BuildModes/Item4/@Name
-#'/CONFIG/ProjectOptions/BuildModes/Item4/CompilerOptions/SearchPaths/OtherUnitFiles/@Value'  
-#)
-
-
-#xmlstartlet é instalado pelo lamw_manager_setup.sh
-
-#for node in ${w[@]}; do
-#	svn revert . -R
-#	export other_units="$(xmlstarlet sel -t -v  $node  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi)"
-#	export acbr_base="\$(ACBrDir)/Fontes/ACBrDFe/ACBrNFe/Base"
-#	export other_units_fixed="$other_units;$acbr_base"
-#	xmlstarlet edit  --inplace  -u "$node" -v "$other_units_fixed" "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi"
-#done
-
-cd $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
-
-echo -s "Compilando LIB Android..."
-
-if [ -f "$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/ACBrLibNFeConsoleMT.lpi" ]; then
+#Compila LIB com LAMW
+if [ -f "$DIR_LIB/ACBrLibNFeConsoleMT.lpi" ]; then
   echo -s "Compilando LIB Android..."\n
-  ${lazbuild_lamw} --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-  ${lazbuild_lamw} --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
+  ${lazbuild_lamw} --bm=android-armeabi-v7a $DIR_LIB/ACBrLibNFeConsoleMT.lpi
+  ${lazbuild_lamw} --bm=android-arm64-v8a $DIR_LIB/ACBrLibNFeConsoleMT.lpi
 else
   echo "ACBrLibNFeConsoleMT.lpi não encontrado, verifique os arquivos."\n
+  exit
 fi
-${lazbuild_lamw} --bm=android-armeabi-v7a ACBrLibNFeConsoleMT.lpi
-${lazbuild_lamw} --bm=android-arm64-v8a ACBrLibNFeConsoleMT.lpi
-cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
 
+cp  $ACBR_HOME/Projetos/ACBrLib/Fontes/NFe/bin/Android/jniLibs $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
 
 # copiar as bibliotecas do openssl para o projeto android
 
