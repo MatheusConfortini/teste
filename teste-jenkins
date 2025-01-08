@@ -19,7 +19,7 @@ pipeline {
         )
     }
     stages {
-        stage('Sincroniza Fontes') {
+        stage('Sincronizando Fontes') {
             steps {
                 script {
                     checkout([
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-        stage('Compila LPI') {
+        stage('Compilando LPI') {
             steps {
                 sh 'chmod 777 -R trunk2'
                 sh 'bash stage_1.sh'
