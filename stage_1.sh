@@ -6,7 +6,7 @@ source /home/pascal/LAMW/lamw4linux/etc/environment
 
 #Variaveis
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
-#export ANDROID_HOME=/opt/ides/lamw/sdk
+export ANDROID_HOME=/opt/ides/lamw/sdk
 export DIR_LPI=$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
 
 # Compila LIB com LAMW
