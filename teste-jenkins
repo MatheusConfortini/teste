@@ -14,7 +14,7 @@ pipeline {
     }
     agent {
         docker {
-            image ${DOCKER_IMAGE}
+            image "${DOCKER_IMAGE}"
             args '--privileged --rm -u 0'
             reuseNode true
         }
