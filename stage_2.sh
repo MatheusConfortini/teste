@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+#Atalho para o LAMW
+export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
+source /home/pascal/LAMW/lamw4linux/etc/environment
+
 #Variaveis
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
+export ANDROID_HOME=/opt/ides/lamw/sdk
+export DIR_LPI=$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe
 
 #Copia as bibliotecas do openssl para o projeto android
 cp $ACBR_HOME/DLLs/Android/OpenSSL/openssl-1.1.1d/arm-linux-androideabi/Dynamic/*  $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe/jniLibs/armeabi-v7a
