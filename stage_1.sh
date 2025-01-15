@@ -31,3 +31,27 @@ else
   echo -e "ACBrLibNFeConsoleMT.lpi não encontrado, verifique os arquivos.\n"
   exit 1
 fi
+
+
+# Compila LIB DEMO com LAMW
+if [ -f "$DIR_LPI/ACBrLibNFeConsoleMTDemo.lpi" ]; then
+  echo -e "Compilando LIB Android...\n"
+  
+  ${lazbuild_lamw} --bm=android-armeabi-v7a $DIR_LPI/ACBrLibNFeConsoleMTDemo.lpi
+  if [ $? -ne 0 ]; then
+    echo -e "Erro ao compilar para android-armeabi-v7a.\n"
+    exit 1
+  fi
+
+  ${lazbuild_lamw} --bm=android-arm64-v8a $DIR_LPI/ACBrLibNFeConsoleMTDemo.lpi
+  if [ $? -ne 0 ]; then
+    echo -e "Erro ao compilar para android-arm64-v8a.\n"
+    exit 1
+  fi
+  
+  echo -e "Compilação concluída com sucesso.\n"
+  cp  $DIR_LPI/bin/Android/jniLibs $ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe -r
+else
+  echo -e "ACBrLibNFeConsoleMTDemo.lpi não encontrado, verifique os arquivos.\n"
+  exit 1
+fi
