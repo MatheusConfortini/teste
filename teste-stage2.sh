@@ -8,7 +8,7 @@ source /home/pascal/LAMW/lamw4linux/etc/environment
 
 #variaveis 
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
-export ANDROID_HOME=/opt/ides/lamw/sdk
+export ANDROID_HOME=/home/pascal/LAMW/sdk
 
 #armazenar a keystore e e senhas em algum lugar para reusa-las depois ...
 
