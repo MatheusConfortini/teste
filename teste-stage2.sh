@@ -3,7 +3,7 @@
 
 #importa as variaveis de ambiente 
 
-source  /opt/ides/lamw/lamw4linux/etc/environment
+source /home/pascal/LAMW/lamw4linux/etc/environment
 
 
 #variaveis 
