@@ -68,7 +68,7 @@ KEYSTORE_PASSWORD="$KEY_PASSWORD"
 KEYSTORE_ALIAS=acbrlibandroidsign
 KEYSTORE_PUBLIC_KEY="${KEYSTORE_ALIAS}-public.pem"
 KEYSTORE_FILE=${KEYSTORE_ALIAS}.keystore
-OUTPUT_DIR=$(mkdir $ACBR_HOME/Assinados/Pro)
+OUTPUT_DIR="$ACBR_HOME/Assinados/Pro"
 
 INPUT_AAR="$ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe/build/outputs/aar/ACBrLibNFe-release.aar" 
 SIGNED_OUTPUT_AAR="$OUTPUT_DIR/ACBrLibNFe-release.aar"
@@ -99,6 +99,7 @@ gerarAndroidKeystore(){
 
 assinarAAR(){
 	cd $KEYSTORE_PATH
+  mkdir -p "$OUTPUT_DIR"
 	jarsigner -keystore $KEYSTORE_FILE -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD -signedjar $SIGNED_OUTPUT_AAR -verbose $INPUT_AAR $KEYSTORE_ALIAS
 }
 
