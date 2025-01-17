@@ -68,9 +68,10 @@ KEYSTORE_PASSWORD="$KEY_PASSWORD"
 KEYSTORE_ALIAS=acbrlibandroidsign
 KEYSTORE_PUBLIC_KEY="${KEYSTORE_ALIAS}-public.pem"
 KEYSTORE_FILE=${KEYSTORE_ALIAS}.keystore
+OUTPUT_DIR=$(mkdir $ACBR_HOME/Assinados/Pro)
 
 INPUT_AAR="$ACBR_HOME/Projetos/ACBrLib/Android/NFe/ACBrLibNFe/build/outputs/aar/ACBrLibNFe-release.aar" 
-SIGNED_OUTPUT_AAR="$ACBR_HOME/Assinados/Pro/ACBrLibNFe-release.aar"
+SIGNED_OUTPUT_AAR="$OUTPUT_DIR/ACBrLibNFe-release.aar"
 KEYSTORE_INFO="CN=Projeto ACBr Consultoria S.A Signing Key, OU=ACBrLab, O=Projeto ACBr Consultoria S.A, L=São Paulo, ST=SP, C=BR"
 KEYSTORE_PATH="$ACBR_HOME/android-keystore"
 #tempo de expiracao do certificaod 
