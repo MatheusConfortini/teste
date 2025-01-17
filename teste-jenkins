@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Compilando ACBrLibBase e Build .aar') {
             steps {
-                sh 'pwd'
+                sh 'bash stage_2.sh'
             }
         }
     }
