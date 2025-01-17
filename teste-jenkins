@@ -35,12 +35,12 @@ pipeline {
         stage('Compilando LPI') {
             steps {
                 sh 'chmod 777 -R trunk2'
-                sh 'bash -x stage_1.sh'
+                sh 'bash stage_1.sh'
             }
         }
         stage('Compilando ACBrLibBase e Build .aar') {
             steps {
-                sh 'bash -x teste-stage2.sh'
+                sh 'pwd'
             }
         }
     }
