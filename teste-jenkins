@@ -16,12 +16,10 @@ pipeline {
         stage('Sincronizando Fontes') {
             steps {
                 script {
-                    // Sincroniza o repositório SVN de acordo com a revisão especificada
-                    def revision = params.RevSVN ?: 'HEAD' // Usa 'HEAD' se não for fornecida a revisão
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: "${SVN_ACBR}${revision}"]
+                            [remote: SVN_ACBR + params.RevSVN]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
