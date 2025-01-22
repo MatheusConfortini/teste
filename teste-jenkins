@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image "matheusconf/lazarus:test"
-            args '--privileged -u 0'
-            reuseNode true
-        }
-    }
+    agent any
     options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
@@ -22,10 +16,12 @@ pipeline {
         stage('Sincronizando Fontes') {
             steps {
                 script {
+                    // Sincroniza o repositório SVN de acordo com a revisão especificada
+                    def revision = params.RevSVN ?: 'HEAD' // Usa 'HEAD' se não for fornecida a revisão
                     checkout([
                         $class: 'SubversionSCM',
                         locations: [
-                            [remote: SVN_ACBR + params.RevSVN]
+                            [remote: "${SVN_ACBR}${revision}"]
                         ],
                         workspaceUpdater: [$class: 'UpdateWithCleanUpdater']
                     ])
@@ -33,14 +29,26 @@ pipeline {
             }
         }
         stage('Compilando LPI') {
+            agent {
+                docker {
+                    image 'matheusconf/lazarus:test'
+                    args '--privileged -u 0'
+                }
+            }
             steps {
-                sh 'chmod 777 -R trunk2'
-                sh 'bash stage_1.sh'
+                sh 'chmod 777 -R trunk2'  
+                sh './stage_1.sh'  
             }
         }
         stage('Compilando ACBrLibBase e Build .aar') {
+            agent {
+                docker {
+                    image 'matheusconf/lazarus:test'
+                    args '--privileged -u 0'
+                }
+            }
             steps {
-                sh 'bash stage_2.sh'
+                sh './stage_2.sh'  
             }
         }
     }
