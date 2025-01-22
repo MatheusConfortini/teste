@@ -9,7 +9,7 @@ pipeline {
     options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2/'
-        DOCKER_IMAGE = 'matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android'
+        DOCKER_IMAGE = 'matheusconf/lazarus:test'
     }
     parameters {
         string(
