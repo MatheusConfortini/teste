@@ -30,25 +30,25 @@ pipeline {
             agent {
                 docker {
                     image 'matheusconf/lazarus:test'
-                    args '--privileged -u 0'
+                    args '--privileged -u0'
                     reuseNode true
                 }
             }
             steps {
                 sh 'chmod 777 -R trunk2'  
-                sh './stage_1.sh'  
+                sh 'bash -x stage_1.sh'  
             }
         }
         stage('Compilando ACBrLibBase e Build .aar') {
             agent {
                 docker {
                     image 'matheusconf/lazarus:test'
-                    args '--privileged -u 0'
+                    args '--privileged -u0'
                     reuseNode true
                 }
             }
             steps {
-                sh './stage_2.sh'  
+                sh 'bash -x stage_2.sh'  
             }
         }
     }
