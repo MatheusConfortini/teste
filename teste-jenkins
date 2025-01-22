@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image "matheusconf/lazarus-crossbuilder:lazarus-2.2.4-android"
+            image "matheusconf/lazarus:test"
             args '--privileged -u 0'
             reuseNode true
         }
