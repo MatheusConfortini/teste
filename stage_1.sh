@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 #Atalho para o LAMW
-export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
-source /home/pascal/LAMW/lamw4linux/etc/environment
+#export lazbuild_lamw=/home/pascal/LAMW/lamw4linux/usr/bin/lazbuild
+#source /home/pascal/LAMW/lamw4linux/etc/environment
 
 #Variaveis
 export ACBR_HOME=/var/jenkins_home/workspace/Teste-Pipeline/trunk2
-export ANDROID_HOME=/home/pascal/LAMW/sdk
+#export ANDROID_HOME=/home/pascal/LAMW/sdk
 
 
 ACBRLIB_LPI_DIR="$ACBR_HOME/Projetos/ACBrLib/Fontes/NFe"
@@ -18,13 +18,13 @@ JNILIBS_OUTDIR="$ACBRLIB_ANDROID_PROJECT_DIR/src/main/jniLibs"
 if [ -f "$ACBRLIB_LPI_DIR/ACBrLibNFeConsoleMT.lpi" ]; then
   echo -e "Compilando LIB Android...\n"
 
-  ${lazbuild_lamw} --bm=android-armeabi-v7a $ACBRLIB_LPI_DIR/ACBrLibNFeConsoleMT.lpi
+  lazbuild --bm=android-armeabi-v7a $ACBRLIB_LPI_DIR/ACBrLibNFeConsoleMT.lpi
   if [ $? -ne 0 ]; then
     echo -e "Erro ao compilar para android-armeabi-v7a.\n"
     exit 1
   fi
 
-  ${lazbuild_lamw} --bm=android-arm64-v8a $ACBRLIB_LPI_DIR/ACBrLibNFeConsoleMT.lpi
+  lazbuild --bm=android-arm64-v8a $ACBRLIB_LPI_DIR/ACBrLibNFeConsoleMT.lpi
   if [ $? -ne 0 ]; then
     echo -e "Erro ao compilar para android-arm64-v8a.\n"
     exit 1
