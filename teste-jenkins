@@ -8,7 +8,7 @@ pipeline {
     parameters {
         string(
             name: 'RevSVN',
-            defaultValue: '',
+            defaultValue: '@',
             description: 'Defina a revisão estável do SVN do ACBR (deixe vazio para a última revisão)'
         )
     }
