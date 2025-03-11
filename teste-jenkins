@@ -3,7 +3,7 @@ pipeline {
     options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2'
-        DOCKER_IMAGE = 'mconf/fpcdeluxe'
+        DOCKER_IMAGE = 'mconf/fpcdeluxe:1.0'
     }
     parameters {
         string(
@@ -29,7 +29,7 @@ pipeline {
         stage('Compilando LPI') {
             agent {
                 docker {
-                    image 'mconf/fpcdeluxe'
+                    image 'mconf/fpcdeluxe:1.0'
                     args '--privileged -u0'
                     reuseNode true
                 }
@@ -42,7 +42,7 @@ pipeline {
         stage('Compilando ACBrLibBase e Build .aar') {
             agent {
                 docker {
-                    image 'matheusconf/lazarus:test'
+                    image 'mconf/fpcdeluxe:1.0'
                     args '--privileged -u0'
                     reuseNode true
                 }
