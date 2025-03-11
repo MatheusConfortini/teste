@@ -3,7 +3,7 @@ pipeline {
     options { disableConcurrentBuilds() }
     environment {
         SVN_ACBR = 'https://svn.code.sf.net/p/acbr/code/trunk2'
-        DOCKER_IMAGE = 'matheusconf/lazarus:test'
+        DOCKER_IMAGE = 'mconf/fpcdeluxe'
     }
     parameters {
         string(
@@ -29,7 +29,7 @@ pipeline {
         stage('Compilando LPI') {
             agent {
                 docker {
-                    image 'matheusconf/lazarus:test'
+                    image 'mconf/fpcdeluxe'
                     args '--privileged -u0'
                     reuseNode true
                 }
